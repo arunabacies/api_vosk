@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "4df4be0c-9849-4177-a33c-f58dffb14f40",
+		"name": "ATI-Vosk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROD API",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "3kgEt0Pci7wyimjH4R6H6S5ft3gNFt48IJ1cwRKa",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"file_to_transcribe\": \"https://www.junkipedia.org/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNVIvK3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--23fcf80e01354ecd3f2f66326f64bb3232c59d78/0688568ecc2641b9994d46825fa74da5\",\n    \"webhook_url\": \"https://webhook.site/f59c935d-e704-4d1e-b957-905fc698211f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://7cwh4f1jlj.execute-api.us-east-1.amazonaws.com/PROD/addtoqueue",
+					"protocol": "https",
+					"host": [
+						"7cwh4f1jlj",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"PROD",
+						"addtoqueue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROD API Get Autoscaling Instance Info",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"autoscaling_group_name\": \"vosk-autoscaling-group-v1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://7cwh4f1jlj.execute-api.us-east-1.amazonaws.com/PROD/getautoscalinginfo",
+					"protocol": "https",
+					"host": [
+						"7cwh4f1jlj",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"PROD",
+						"getautoscalinginfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PROD API Autoscaling Capacity Update",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"autoscaling_group_name\": \"vosk-autoscaling-group-v1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://xwkvm5c4kj.execute-api.us-east-1.amazonaws.com/Test/updateautoscalinggroup",
+					"protocol": "https",
+					"host": [
+						"xwkvm5c4kj",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Test",
+						"updateautoscalinggroup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST API",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "3kgEt0Pci7wyimjH4R6H6S5ft3gNFt48IJ1cwRKa",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"file_to_transcribe\": \"https://www.junkipedia.org/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNVIvK3c9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--23fcf80e01354ecd3f2f66326f64bb3232c59d78/0688568ecc2641b9994d46825fa74da5\",\n    \"webhook_url\": \"https://webhook.site/9b898ffc-c0a7-4a53-9b78-17bfd1996ab5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://xwkvm5c4kj.execute-api.us-east-1.amazonaws.com/Test/addtoqueue",
+					"protocol": "https",
+					"host": [
+						"xwkvm5c4kj",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Test",
+						"addtoqueue"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
