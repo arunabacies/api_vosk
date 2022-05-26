@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  web:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    environment:
+      FLASK_DEBUG: "on"
+      FLASK_APP: ./app.py
+    restart: always
+    ports:
+     - "5001:5001"
+    depends_on:
+      - redis
+    volumes: ['./api:/api']
+  worker:
+    build:
+      context: ./celery-queue
+      dockerfile: Dockerfile
+    command: celery -A tasks worker -B --concurrency=1
+    env_file:
+      - .envDev
+    depends_on:
+      - redis
+    volumes: ['./celery-queue:/queue']
+    restart: always
+
+  monitor:
+    build:
+      context: ./celery-queue
+      dockerfile: Dockerfile.celeryMonitor
+    ports:
+     - "5555:5555"
+    command:  ['celery', 'flower', 'tasks']
+    env_file:
+      - .envDev
+    depends_on:
+      - redis
+      - worker
+    volumes: ['./celery-queue:/queue']
+  redis:
+    image: redis:7.0-rc3
+    restart: always
+    ports:
+      - "6379:6379"

@@ -1,0 +1,10 @@
+celery==5.1.2
+flower==1.0.0
+redis==3.5.3
+watchdog==2.1.5
+vosk
+boto3
+requests
+python-dotenv
+celery[sqs]
+psutil
