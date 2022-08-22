@@ -1,6 +1,6 @@
 import celery.states as states
 from flask import Flask, Response
-from flask import url_for, jsonify
+from flask import url_for, jsonify, request
 from worker import celery
 import json
 from config import Config
@@ -48,9 +48,9 @@ def get_json_data_from_job_id() -> Response:
         s3_clientdata = s3_clientobj['Body'].read().decode('utf-8')
         body_is = json.loads(s3_clientdata)
         result = body_is['transcription_results']
-        return jsonify({'result': result, 'status': 200})
+        return jsonify({'data': result, 'status': 200})
     except:
-        return jsonify({'result': 'None', 'status': 404})
+        return jsonify({'data': None,  'status': 404})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
