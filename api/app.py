@@ -30,27 +30,19 @@ app = Flask(__name__)
 def health_check() -> Response:
     return jsonify("OK")
 
-@app.route('/get_s3_data',methods=['POST'])
+
+@app.route('/get_data_for_job_id', methods=['POST'])
 def get_json_data_from_job_id() -> Response:
     try:
-        s3 = boto3.client('s3', aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
-                        aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY,
-                        region_name=Config.AWS_REGION)
-        s3_clientobj = s3.get_object(Bucket=Config.BUCKET_NAME,
-                                    Key="credentials/env.json")
-        s3_clientdata = s3_clientobj['Body'].read().decode('utf-8')     
+        s3_client = boto3.client('s3', aws_access_key_id=Config.AWS_ACCESS_KEY_ID,
+                                 aws_secret_access_key=Config.AWS_SECRET_ACCESS_KEY,
+                                 region_name=Config.AWS_REGION)
+        s3_client_obj = s3_client.get_object(Bucket=Config.BUCKET_NAME, Key=f"processed/{request.json['job_id']}.json")
+        result = json.loads(s3_client_obj['Body'].read().decode('utf-8')).get('transcription_results')
+        return jsonify({'data': result, 'message': 'Success', 'status': 200})
     except Exception as e:
-        return jsonify({'result': 's3 config error', 'status': 401})
-    req_data = json.loads(request.data)
-    job_id = req_data.get('job_id')
-    try:        
-        s3_clientobj = s3.get_object(Bucket=Config.BUCKET_NAME,Key=f"processed/{job_id}.json")
-        s3_clientdata = s3_clientobj['Body'].read().decode('utf-8')
-        body_is = json.loads(s3_clientdata)
-        result = body_is['transcription_results']
-        return jsonify({'data': result, 'status': 200})
-    except:
-        return jsonify({'data': None,  'status': 404})
+        return jsonify({'message': 'No Data found', 'status': 404})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
